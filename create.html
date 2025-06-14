@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Create Blog</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #e0f7fa, #fff);
+    }
+
+    header {
+      background-color: #841d61;
+      color: rgb(240, 236, 239);
+      padding: 1rem;
+      text-align: center;
+    }
+
+    main {
+      padding: 2rem;
+      max-width: 700px;
+      margin: auto;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+
+    textarea, input[type="text"] {
+      width: 100%;
+      padding: 1rem;
+      margin: 1rem 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    .preview {
+      margin-top: 2rem;
+      border-top: 1px solid #ccc;
+      padding-top: 1rem;
+    }
+
+    .preview img {
+      max-width: 100%;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+
+    button {
+      padding: 0.75rem 2rem;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    input[type="file"] {
+      margin: 1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <header><h1>Create a New Blog</h1></header>
+
+  <main>
+    <input type="text" id="title" placeholder="Enter blog title..." />
+    <textarea id="editor" placeholder="Write your blog here..."></textarea>
+    <input type="file" id="imageInput" accept="image/*" />
+    <button onclick="savePost()">Save Post</button>
+
+    <div class="preview" id="preview">
+      <h2>Live Preview</h2>
+      <img id="previewImage" src="" alt="" style="display:none;" />
+      <h3 id="previewTitle"></h3>
+      <p id="previewContent"></p>
+    </div>
+  </main>
+
+  <script>
+    const titleInput = document.getElementById("title");
+    const editor = document.getElementById("editor");
+    const imageInput = document.getElementById("imageInput");
+    const previewTitle = document.getElementById("previewTitle");
+    const previewContent = document.getElementById("previewContent");
+    const previewImage = document.getElementById("previewImage");
+
+    titleInput.addEventListener("input", updatePreview);
+    editor.addEventListener("input", updatePreview);
+    imageInput.addEventListener("change", updateImagePreview);
+
+    function updatePreview() {
+      previewTitle.textContent = titleInput.value;
+      previewContent.textContent = editor.value;
+    }
+
+    function updateImagePreview() {
+      const file = imageInput.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          previewImage.src = e.target.result;
+          previewImage.style.display = "block";
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function savePost() {
+      const title = titleInput.value.trim();
+      const content = editor.value.trim();
+      const image = previewImage.src;
+
+      if (!title || !content) {
+        alert("Please fill in title and content.");
+        return;
+      }
+
+      const post = { title, content, image };
+      const posts = JSON.parse(localStorage.getItem("posts")) || [];
+      posts.push(post);
+      localStorage.setItem("posts", JSON.stringify(posts));
+      alert("Post saved!");
+
+      titleInput.value = "";
+      editor.value = "";
+      imageInput.value = "";
+      updatePreview();
+      previewImage.style.display = "none";
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WebWeavers Blogs - Home</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- Redirect to login if not authenticated -->
+  <script>
+    if (!localStorage.getItem("user")) {
+      window.location.href = "signin.html";
+    }
+  </script>
+
+  <header>
+    <h1>WebWeavers Blogs</h1>
+    <nav class="nav-bar">
+      <a href="index.html">Home</a>
+      <a href="feed.html">Feed</a>
+      <a href="create.html">Create</a>
+      <a href="community.html">Communities</a>
+    </nav>
+  </header>
+
+  <main>
+    <button onclick="logout()" class="logout-btn">Logout</button>
+    <h2>Welcome to the Blogging Hub for WebWeavers Communities</h2>
+    <p>Discover, share, and connect with like-minded people.</p>
+    <img src="assets/Home-banner.png" alt="Home Banner" class="home-image" />
+  </main>
+
+  <footer>
+    &copy; 2025 WebWeavers Blogs
+  </footer>
+
+  <script>
+    function logout() {
+      localStorage.removeItem("user");
+      window.location.href = "signin.html";
+    }
+  </script>
+</body>
+</html>

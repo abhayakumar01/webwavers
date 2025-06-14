@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - Niche Blog</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="auth-page">
+  <div class="auth-box">
+    <h2>Login to Niche Blog</h2>
+    <input type="text" id="login-user" placeholder="Username" />
+    <input type="password" id="login-pass" placeholder="Password" />
+    <button onclick="login()">Login</button>
+    <p>Don't have an account? <a href="#">Sign up</a></p>
+  </div>
+
+  <script>
+    function login() {
+      const user = document.getElementById("login-user").value;
+      const pass = document.getElementById("login-pass").value;
+
+      if (!user || !pass) {
+        alert("Please enter both username and password.");
+        return;
+      }
+
+      // Simulated login
+      localStorage.setItem("user", user);
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>

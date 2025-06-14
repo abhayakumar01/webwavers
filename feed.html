@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Blog Feed</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f4f4f4;
+    }
+    header {
+      background-color: #0072ff;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      background-color: #004aad;
+      padding: 1rem;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      background-color: #007bff;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+    main {
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    .post-card {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+    .post-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .post-card h3 {
+      margin: 1rem;
+      font-size: 1.2rem;
+    }
+    .post-card p {
+      margin: 0 1rem 1rem;
+      color: #555;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: #222;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Latest Blog Posts</h1>
+  </header>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="feed.html">Feed</a>
+    <a href="create.html">Create</a>
+    <a href="community.html">Communities</a>
+  </nav>
+  <main id="feed">
+    <!-- Default sample posts -->
+    <div class="post-card">
+      <img src="assets/img4.png" alt="Exploring Quantum Physics">
+      <h3>The Spark That Changed Everything</h3>
+      <p>There’s something magical about fireworks — the way they burst into the sky, unapologetically bright, impossible to ignore. I remember standing there that night, holding a tiny sparkler while the sky exploded above me. For the first time in a long time, I felt alive.
+That evening wasn’t planned. It wasn’t a celebration. I wasn’t surrounded by a crowd or music or champagne. I was just a person — exhausted, uncertain, and quietly hoping for a sign.
+The sparkler in my hand was small, but it reminded me that light doesn’t have to be massive to be meaningful. Sometimes it’s the tiniest act of joy — showing up, taking a walk, writing a paragraph, texting a friend — that sparks the shift we need.
+That night became my turning point. I stopped waiting for “the right time” and started building one step at a time. I made space for creativity. I forgave myself for past delays. I gave myself permission to shine — in small, sustainable bursts.
+So here’s to the little sparks. The quiet victories. The fire inside that refuses to burn out.
+If you're reading this and waiting for a sign — maybe this is it. Light your spark. Watch what happens next.
+</p>
+    </div>
+    <div class="post-card">
+  <img src="assets/img1.png" alt="Open Road to the Mountains">
+  <h3>The Road That Reminded Me to Slow Down</h3>
+  <p>Driving through the fog, with no GPS and no timeline, reminded me that life doesn’t always need a destination — just momentum.</p>
+</div>
+
+  <script>
+    const feed = document.getElementById("feed");
+
+    const savedPosts = JSON.parse(localStorage.getItem("posts")) || [];
+    savedPosts.forEach(post => {
+      const div = document.createElement("div");
+      div.classList.add("post-card");
+
+      const imgTag = document.createElement("img");
+      imgTag.src = post.image || "assets/quantum.jpg"; // fallback image
+      imgTag.alt = post.title;
+
+      const title = document.createElement("h3");
+      title.textContent = post.title;
+
+      const content = document.createElement("p");
+      content.textContent = post.content;
+
+      div.appendChild(imgTag);
+      div.appendChild(title);
+      div.appendChild(content);
+
+      feed.appendChild(div);
+    });
+  </script>
+</body>
+</html>
